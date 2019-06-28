@@ -2,24 +2,27 @@ FROM mono:5.18.0.225
 
 ENV S6_VERSION=v1.21.4.0
 ENV LANG=en_US.UTF-8
-ENV HOMESEER_VERSION=3_0_0_500
+ENV HOMESEER_VERSION=3_0_0_531
 
-RUN apt-get update && apt-get install -y \
-    chromium \
-    flite \
-    wget \
-    nano \
-    iputils-ping \
-    net-tools \
-    etherwake \
-    ssh-client \
-    mosquitto-clients \
-    mono-vbnc \
-    mono-xsp4 \
-    avahi-discover \
-    libavahi-compat-libdnssd-dev \
-    libnss-mdns \
-    avahi-daemon avahi-utils mdns-scan \
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
+    apt-get install -y \
+      chromium \
+      flite \
+      wget \
+      nano \
+      iputils-ping \
+      net-tools \
+      etherwake \
+      ssh-client \
+      mosquitto-clients \
+      mono-vbnc \
+      mono-xsp4 \
+      avahi-discover \
+      libavahi-compat-libdnssd-dev \
+      libnss-mdns \
+      avahi-daemon avahi-utils mdns-scan \
+      python3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && touch /DO_INSTALL
