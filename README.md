@@ -2,7 +2,19 @@
 
 This image containerizes the HomeSeer HS3 home automation software. 
 
-Current HomeSeer version: **HS3 3.0.0.500**
+Current HomeSeer version: **HS3 3.0.0.531**
+
+Started with marthoc/docker-homeseer was and just wanted to update and tweak as I need for 
+myself and my friend mattgam.  
+
+# running history
+
+* 2019-06-28 
+  * Updating readme
+    * added default time zone of east coast rather than utc             
+* 2019-06-27 
+  * Added Python3
+
 
 ### Running the HomeSeer Container
 
@@ -17,7 +29,7 @@ docker run -d \
     -p 10401:10401 \
     -p 11000:11000 \
     --device /dev/ttyUSB0 \
-    marthoc/homeseer:latest
+    davequick/homeseer:latest
 ```
 #### Options:  
 `--name homeseer`: Names the container "homeseer".  

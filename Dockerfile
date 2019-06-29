@@ -3,6 +3,9 @@ FROM mono:5.18.0.225
 ENV S6_VERSION=v1.21.4.0
 ENV LANG=en_US.UTF-8
 ENV HOMESEER_VERSION=3_0_0_531
+ENV TZ=America/New_York
+
+RUN echo $TZ > /etc/timezone
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
@@ -25,6 +28,8 @@ RUN apt-get update -y && \
       python3 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
+    && rm /etc/localtime \
+    && dpkg-reconfigure -f noninteractive tzdata \
     && touch /DO_INSTALL
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_VERSION}/s6-overlay-amd64.tar.gz /tmp/
@@ -38,6 +43,6 @@ ARG AVAHI
 RUN [ "${AVAHI:-1}" = "1" ] || (echo "Removing Avahi" && rm -rf /etc/services.d/avahi /etc/services.d/dbus)
 
 VOLUME [ "/HomeSeer" ] 
-EXPOSE 80 10200 10300 10401 11000
+EXPOSE 80 10200 10300 10401 11000 57600/udp
 
 ENTRYPOINT [ "/init" ]
